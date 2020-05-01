@@ -12,10 +12,11 @@ from bs4 import BeautifulSoup
 # http://famouspoetsandpoems.com/poets/gregory_corso/poems
 # http://famouspoetsandpoems.com/poets/gary_snyder/poems
 POETS = ["allen_ginsberg", "lawrence_ferlinghetti", "gregory_corso", "gary_snyder"]
-URL_PREFIX = "http://famouspoetsandpoems.com/poets/"
+URL_PREFIX = "http://famouspoetsandpoems.com/"
+URL_POET = "poets/"
 URL_POST = "/poems"
 
-current_url = f"{URL_PREFIX}{POETS[0]}{URL_POST}"
+current_url = f"{URL_PREFIX}{URL_POET}{POETS[0]}{URL_POST}"
 print(current_url)
 
 page = requests.get(current_url)
@@ -25,5 +26,4 @@ for link in soup.find_all('a'):
     href = link.get('href')
     poem_href = f'/poets/{POETS[0]}/poems'
     if poem_href in href and href != poem_href:
-        print(href)
-
+        print(f'{URL_PREFIX}{href}')
