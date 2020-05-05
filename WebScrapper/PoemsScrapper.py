@@ -1,9 +1,7 @@
 import requests
 # from bs4 import BeautifulSoup
 import bs4
-# URL = 'https://www.monster.com/jobs/search/?q=Software-Developer&where=Australia'
-# page = requests.get(URL)
-#
+from WebScrapper import Constants
 
 
 #  Allen Ginsberg, Lawrence Ferlinghetti, Gregory Corso, and Gary Snyder
@@ -11,11 +9,6 @@ import bs4
 # http://famouspoetsandpoems.com/poets/lawrence_ferlinghetti/poems
 # http://famouspoetsandpoems.com/poets/gregory_corso/poems
 # http://famouspoetsandpoems.com/poets/gary_snyder/poems
-POETS = ["allen_ginsberg", "lawrence_ferlinghetti", "gregory_corso", "gary_snyder"]
-URL_PREFIX = "http://famouspoetsandpoems.com/"
-URL_POET = "poets/"
-URL_POST = "/poems"
-POEM_CSS_STYLE = "padding-left:14px;padding-top:20px;font-family:Arial;font-size:13px;"
 
 
 # TODO: add exception handling
@@ -26,27 +19,30 @@ def get_poem_urls(url: str) -> list:
 
     for link in soup.find_all('a'):
         href = link.get('href')
-        poem_href = f'/poets/{POETS[0]}/poems'
+        poem_href = f'/poets/{Constants.POETS[0]}/poems'
         if poem_href in href and href != poem_href:
-            poems.append(f'{URL_PREFIX}{href}')
+            poems.append(f'{Constants.URL_PREFIX}{href}')
 
     return poems
 
 
 # TODO: add exception handling
 def get_poem_lines(url: str) -> list:
+    return convert_contents_to_string_list(get_poems_tags(url))
+
+
+def get_poems_tags(url: str):
     request_page = requests.get(url)
     soup = bs4.BeautifulSoup(request_page.content, 'html.parser')
 
-    divs = soup.find_all(style=POEM_CSS_STYLE)
-    contents = divs[0].contents
-
-    return convert_contents_to_strList(contents)
+    divs = soup.find_all(style=Constants.POEM_CSS_STYLE)
+    return divs[0].contents
 
 
-def convert_contents_to_strList(bsList: list) -> list:
+def convert_contents_to_string_list(bsList: list) -> list:
     string_contents = [str(c) for c in bsList if not isinstance(c, bs4.element.Tag)]
     return string_contents[: -1]
+
 
 # TODO: add exception handling
 def get_clean_poem_lines(poem_lines: list, remove_non_asscii : bool = False) -> list:
@@ -78,7 +74,7 @@ def write_poems_to_file(filename: str, poem_lines: list, encoding: str = 'utf-16
 
 
 def write_poet_to_file(poet_name: str, filename: str):
-    current_url = f"{URL_PREFIX}{URL_POET}{poet_name}{URL_POST}"
+    current_url = f"{Constants.URL_PREFIX}{Constants.URL_POET}{poet_name}{Constants.URL_POST}"
     poem_links = get_poem_urls(current_url)
 
     line_list = []
