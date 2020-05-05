@@ -45,12 +45,16 @@ def get_poem_lines(url: str) -> list:
 
 
 # TODO: add exception handling
-def get_clean_poem_lines(poem_lines: list) -> list:
+def get_clean_poem_lines(poem_lines: list, remove_non_asscii : bool = False) -> list:
     current_line = ""
     clean_poem_lines = []
     for line in poem_lines:
         line = line.replace("\n", "").lstrip()
-        line = line if not line.endswith("- ") else line[:len(line) - 2]
+
+        if remove_non_asscii:
+            text = text.decode("utf - 8").encode("ascii", "ignore")
+
+        line = line if not line.endswith("- ") else line[:-2]
         current_line = current_line + line
 
         if current_line.endswith(". ") or current_line.endswith("? ") or current_line.endswith("! "):
@@ -81,6 +85,9 @@ def write_poet_to_file(poet_name: str, filename: str):
     write_poems_to_file(filename, clean_lines)
 
 
-write_poet_to_file(POETS[0], filename='whitman.txt')
-# l = [1,2,3,4,5,6]
-# print(l[:len(l)-1])
+# write_poet_to_file(POETS[0], filename='whitman.txt')
+l = [1, 2, 3, 4, 5, 6]
+print(l[:-1])
+
+# pl = get_poems(f"{URL_PREFIX}{URL_POET}{POETS[0]}{URL_POST}")
+# print(pl)
