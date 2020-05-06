@@ -12,13 +12,13 @@ def mocked_requests_get(*args, **kwargs):
             self.status_code = status_code
 
     if args[0] == TestData.HAPPY_LINKS_URL:
-        return MockResponse(TestData.GOOD_POEM_LINKS, 200)
+        return MockResponse(TestData.GOOD_POET_LINKS, 200)
     elif args[0] == TestData.EMPTY_LINKS_URL:
         return MockResponse(TestData.EMPTY_LINKS, 200)
     elif args[0] == TestData.NOPOEM_LINKS_URL:
-        return MockResponse(TestData.NO_POEM_LINKS, 200)
+        return MockResponse(TestData.NO_POET_LINKS, 200)
     elif args[0] == TestData.MIXED_LINKS_URL:
-        return MockResponse(TestData.MIXED_POEM_LINKS, 200)
+        return MockResponse(TestData.MIXED_POET_LINKS, 200)
     elif args[0] == TestData.NO_CONTENT_URL:
         return MockResponse(None, 404)
     elif args[0] == TestData.BAD_CONTENT_URL:
@@ -27,7 +27,7 @@ def mocked_requests_get(*args, **kwargs):
     return MockResponse(None, 404)
 
 
-class PoemTestScrapperTestCase(unittest.TestCase):
+class GetPoemURLTestCases(unittest.TestCase):
 
     @mock.patch('requests.get', side_effect=mocked_requests_get)
     def test_get_poem_urls_happy(self, mock_get):
@@ -68,6 +68,14 @@ class PoemTestScrapperTestCase(unittest.TestCase):
                           PoemsScrapper.get_poem_urls,
                           TestData.BAD_CONTENT_URL)
         self.assertIn(mock.call(TestData.BAD_CONTENT_URL), mock_get.call_args_list)
+
+
+class GetPoemLinesTestCase(unittest.TestCase):
+    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    def test_get_poems_tags_happy(self, mock_get):
+        lines = PoemsScrapper.get_poem_urls(TestData.HAPPY_LINKS_URL)
+        # self.assertEqual(10, len(links))
+        # self.assertIn(mock.call(TestData.HAPPY_LINKS_URL), mock_get.call_args_list)
 
 
 if __name__ == '__main__':

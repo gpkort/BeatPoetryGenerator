@@ -97,7 +97,7 @@ def write_poet_to_file(poet_name: str, filename: str):
     write_poems_to_file(filename, clean_lines)
 
 
-# get_poem_urls(f"{Constants.URL_PREFIX}{Constants.URL_POET}{Constants.POETS[0]}{Constants.URL_POST}")
+# pl = get_poem_urls(f"{Constants.URL_PREFIX}{Constants.URL_POET}{Constants.POETS[0]}{Constants.URL_POST}")
 # print(pl)
 
 # l = [1, 2, 3, 4, 5, 6]

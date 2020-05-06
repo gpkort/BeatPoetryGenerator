@@ -5,9 +5,13 @@ MIXED_LINKS_URL = 'http://mockurl.com/links/mixed_poems'
 NO_CONTENT_URL = 'http://mockurl.com/no_content'
 BAD_CONTENT_URL = 'http://mockurl.com/bad_content'
 
+GOOD_POEM_URL = 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8318'
+
 BAD_CONTENT = "dnnncadnhdfb"
 
-GOOD_POEM_LINKS = "<html><title>list of links</title><body>" +\
+
+
+GOOD_POET_LINKS = "<html><title>list of links</title><body>" +\
                   "<a href='/poets/allen_ginsberg/poems/8350'>When The Light Appears</a>" +\
                   "<a href='/poets/allen_ginsberg/poems/8361'>First Party At Ken Kesey's With Hell's Angels</a>" +\
                   "<a href='/poets/allen_ginsberg/poems/8362'>Wild Orphan</a>" +\
@@ -17,16 +21,16 @@ GOOD_POEM_LINKS = "<html><title>list of links</title><body>" +\
                   "<a href='/poets/allen_ginsberg/poems/8376'>CIA Dope Calypso</a>" +\
                   "<a href='/poets/allen_ginsberg/poems/8377'>In The Baggage Room At Greyhound</a>" +\
                   "<a href='/poets/allen_ginsberg/poems/8378'>Psalm IV</a>" +\
-                  "<a href='/poets/allen_ginsberg/poems/8379'>Crossing Nation</a>" +\
+                  "<a href='/poets/allen_ginsberg/poems/8379'>Crossing Nation</a>" + \
                   "</body></html>"
 
 EMPTY_LINKS = "<html><title>list of links</title><body></body></html>"
-NO_POEM_LINKS = "<html><title>list of links</title><body>" +\
+NO_POET_LINKS = "<html><title>list of links</title><body>" +\
                   "<a href='blah'>When The Light Appears</a>" +\
                   "<a href='blah'>First Party At Ken Kesey's With Hell's Angels</a>" +\
                   "</body></html>"
 
-MIXED_POEM_LINKS = "<html><title>list of links</title><body>" +\
+MIXED_POET_LINKS = "<html><title>list of links</title><body>" +\
                   "<a href='blah'>When The Light Appears</a>" +\
                   "<a href='blah'>First Party At Ken Kesey's With Hell's Angels</a>" +\
                   "<a href='/poets/allen_ginsberg/poems/8378'>Psalm IV</a>" +\
@@ -34,7 +38,7 @@ MIXED_POEM_LINKS = "<html><title>list of links</title><body>" +\
                   "</body></html>"
 
 
-GOOD_UGLY_LINKS = b'<html>\n<head>\n\t<title>Allen Ginsberg Poems and Poetry</title>\n\t<meta http-equiv="Description" ' \
+UGLY_POET_LINKS = b'<html>\n<head>\n\t<title>Allen Ginsberg Poems and Poetry</title>\n\t<meta http-equiv="Description" ' \
         b'content="All of Allen Ginsberg Poems. Allen Ginsberg Poetry Collection from Famous Poets and ' \
         b'Poems.">\n\t<meta http-equiv="Keywords" content="Allen Ginsberg poems, poetry, poem, Allen Ginsberg ' \
         b'poetry">\n\t<meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n\t<LINK ' \
