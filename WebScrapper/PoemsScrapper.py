@@ -1,8 +1,12 @@
 import requests
-# from bs4 import BeautifulSoup
 import bs4
 from WebScrapper import Constants
 
+
+class UnexpectedResponse(Exception):
+    def __init__(self, message, url):
+        self.message = message
+        self.url = url
 
 #  Allen Ginsberg, Lawrence Ferlinghetti, Gregory Corso, and Gary Snyder
 # http://famouspoetsandpoems.com/poets/allen_ginsberg/poems
@@ -14,14 +18,22 @@ from WebScrapper import Constants
 # TODO: add exception handling
 def get_poem_urls(url: str) -> list:
     request = requests.get(url)
+
+    if request.content is None or request.content == "":
+        raise UnexpectedResponse("No content", url)
+
     soup = bs4.BeautifulSoup(request.content, 'html.parser')
     poems = []
 
     for link in soup.find_all('a'):
         href = link.get('href')
-        poem_href = f'/poets/{Constants.POETS[0]}/poems'
-        if poem_href in href and href != poem_href:
+        poem_href = f'/poets/{Constants.POETS[0]}/poems/'
+
+        if poem_href in href:
             poems.append(f'{Constants.URL_PREFIX}{href}')
+
+    if len(poems) == 0:
+        raise UnexpectedResponse("No poem urls found", url)
 
     return poems
 
@@ -85,10 +97,10 @@ def write_poet_to_file(poet_name: str, filename: str):
     write_poems_to_file(filename, clean_lines)
 
 
-# pl = get_poem_urls(f"{URL_PREFIX}{URL_POET}{POETS[0]}{URL_POST}")
+# get_poem_urls(f"{Constants.URL_PREFIX}{Constants.URL_POET}{Constants.POETS[0]}{Constants.URL_POST}")
 # print(pl)
 
-l = [1, 2, 3, 4, 5, 6]
-print(l[: -1])
+# l = [1, 2, 3, 4, 5, 6]
+# print(l[: -1])
 # poem_urls = ['http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8315', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8318', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8320', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8322', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8325', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8327', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8329', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8331', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8333', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8335', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8337', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8340', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8342', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8344', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8346', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8348', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8349', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8350', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8351', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8352', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8355', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8356', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8358', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8360', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8362', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8365', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8367', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8369', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8371', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8374', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8376', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8378', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8381', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8382', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8386', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8388', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8390', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8391', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8392', 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8393']
 
