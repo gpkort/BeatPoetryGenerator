@@ -20,7 +20,7 @@ def get_poem_urls(url: str) -> list:
     request = requests.get(url)
 
     if request.content is None or request.content == "":
-        raise UnexpectedResponse("No content", url)
+        raise UnexpectedResponse("No content in get_poem_urls", url)
 
     soup = bs4.BeautifulSoup(request.content, 'html.parser')
     poems = []
@@ -44,15 +44,24 @@ def get_poem_lines(url: str) -> list:
 
 
 def get_poems_tags(url: str):
-    request_page = requests.get(url)
-    soup = bs4.BeautifulSoup(request_page.content, 'html.parser')
+    request = requests.get(url)
 
+    if request.content is None or request.content == "":
+        raise UnexpectedResponse("No content in get_poems_tags", url)
+
+    soup = bs4.BeautifulSoup(request.content, 'html.parser')
     divs = soup.find_all(style=Constants.POEM_CSS_STYLE)
+
+    if len(divs) != 1:
+        raise UnexpectedResponse(f"Found {len(divs)} of divs with style:{Constants.POEM_CSS_STYLE}, must equal 1", url)
+    if divs[0].contents is None or len(divs[0].contents) == 0:
+        raise UnexpectedResponse(f"Divisions with style:{Constants.POEM_CSS_STYLE} had no content", url)
+
     return divs[0].contents
 
 
-def convert_contents_to_string_list(bsList: list) -> list:
-    string_contents = [str(c) for c in bsList if not isinstance(c, bs4.element.Tag)]
+def convert_contents_to_string_list(bs_list: list) -> list:
+    string_contents = [str(c) for c in bs_list if not isinstance(c, bs4.element.Tag)]
     return string_contents[: -1]
 
 
@@ -99,6 +108,8 @@ def write_poet_to_file(poet_name: str, filename: str):
 
 # pl = get_poem_urls(f"{Constants.URL_PREFIX}{Constants.URL_POET}{Constants.POETS[0]}{Constants.URL_POST}")
 # print(pl)
+
+# print(get_poems_tags('http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8318'))
 
 # l = [1, 2, 3, 4, 5, 6]
 # print(l[: -1])

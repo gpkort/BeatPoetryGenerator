@@ -5,11 +5,26 @@ MIXED_LINKS_URL = 'http://mockurl.com/links/mixed_poems'
 NO_CONTENT_URL = 'http://mockurl.com/no_content'
 BAD_CONTENT_URL = 'http://mockurl.com/bad_content'
 
-GOOD_POEM_URL = 'http://famouspoetsandpoems.com//poets/allen_ginsberg/poems/8318'
+HAPPY_POEM_URL = 'http://mockurl.com/happy_tag'
+BAD_DIV_POEM_URL = 'http://mockurl.com/bad_div'
+EMPTY_DIV_POEM_URL = 'http://mockurl.com/empty_div'
 
 BAD_CONTENT = "dnnncadnhdfb"
 
+EMPTY_POEM_TAGS = "<html><title>list of tags</title><body><div " +\
+                  "style='padding-left:14px;padding-top:20px;font-family:Arial;font-size:13px;'/></body></html> "
 
+BAD_DIV_POEM_TAGS = "<html><title>list of tags</title><body><div " +\
+                 "style='padding-left:14px;padding-top:20px;font-family:Arial;font-size:14px;'>America I've given you " +\
+                 "all and now I'm nothing. <br>America two dollars and twentyseven cents January <br>        17, " +\
+                 "1956. <br>I can't stand my own mind. <br>America when will we end the human war? <br>Go fuck " +\
+                 "yourself with your atom bomb. <br></div></body></html> "
+
+HAPPY_POEM_TAGS = "<html><title>list of tags</title><body><div " +\
+                 "style='padding-left:14px;padding-top:20px;font-family:Arial;font-size:13px;'>America I've given you " +\
+                 "all and now I'm nothing. <br>America two dollars and twentyseven cents January <br>        17, " +\
+                 "1956. <br>I can't stand my own mind. <br>America when will we end the human war? <br>Go fuck " +\
+                 "yourself with your atom bomb. <br></div></body></html> "
 
 GOOD_POET_LINKS = "<html><title>list of links</title><body>" +\
                   "<a href='/poets/allen_ginsberg/poems/8350'>When The Light Appears</a>" +\
