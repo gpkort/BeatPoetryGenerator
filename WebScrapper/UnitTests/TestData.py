@@ -1,3 +1,5 @@
+import bs4
+
 HAPPY_LINKS_URL = 'http://mockurl.com/links/happy'
 EMPTY_LINKS_URL = 'http://mockurl.com/links/empty'
 NOPOEM_LINKS_URL = 'http://mockurl.com/links/no_poems'
@@ -53,5 +55,3 @@ MIXED_POET_LINKS = "<html><title>list of links</title><body>" +\
                   "</body></html>"
 
 
-def get_soup_tag():
-        pass

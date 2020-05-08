@@ -104,6 +104,14 @@ class GetPoemLinesTestCase(unittest.TestCase):
                           TestData.BAD_CONTENT_URL)
         self.assertIn(mock.call(TestData.BAD_CONTENT_URL), mock_get.call_args_list)
 
+    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    def test_convert_contents_to_string_list_happy(self, mock_get):
+        tags = PoemsScrapper.get_poems_tags(TestData.HAPPY_POEM_URL)
+        sl = PoemsScrapper.convert_contents_to_string_list(tags)
+        self.assertEqual(12, len(tags))
+        self.assertEqual(6, len(sl))
+        self.assertIn(mock.call(TestData.HAPPY_POEM_URL), mock_get.call_args_list)
+
 
 if __name__ == '__main__':
     unittest.main()

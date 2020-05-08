@@ -62,7 +62,7 @@ def get_poems_tags(url: str):
 
 def convert_contents_to_string_list(bs_list: list) -> list:
     string_contents = [str(c) for c in bs_list if not isinstance(c, bs4.element.Tag)]
-    return string_contents[: -1]
+    return string_contents
 
 
 # TODO: add exception handling
