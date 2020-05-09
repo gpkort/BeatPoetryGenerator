@@ -29,6 +29,8 @@ def mocked_requests_get(*args, **kwargs):
         return MockResponse(TestData.BAD_DIV_POEM_TAGS, 200)
     elif args[0] == TestData.EMPTY_DIV_POEM_URL:
         return MockResponse(TestData.EMPTY_POEM_TAGS, 200)
+    elif args[0] == TestData.NO_TEXT_DIV_POEM_URL:
+        return MockResponse(TestData.NO_TEXT_POEM_TAGS, 200)
 
     return MockResponse(None, 404)
 
@@ -111,6 +113,14 @@ class GetPoemLinesTestCase(unittest.TestCase):
         self.assertEqual(12, len(tags))
         self.assertEqual(6, len(sl))
         self.assertIn(mock.call(TestData.HAPPY_POEM_URL), mock_get.call_args_list)
+
+    @mock.patch('requests.get', side_effect=mocked_requests_get)
+    def test_convert_contents_to_string_list_empty(self, mock_get):
+        tags = PoemsScrapper.get_poems_tags(TestData.NO_TEXT_DIV_POEM_URL)
+        sl = PoemsScrapper.convert_contents_to_string_list(tags)
+        self.assertEqual(6, len(tags))
+        self.assertEqual(0, len(sl))
+        self.assertIn(mock.call(TestData.NO_TEXT_DIV_POEM_URL), mock_get.call_args_list)
 
 
 if __name__ == '__main__':

@@ -10,11 +10,16 @@ BAD_CONTENT_URL = 'http://mockurl.com/bad_content'
 HAPPY_POEM_URL = 'http://mockurl.com/happy_tag'
 BAD_DIV_POEM_URL = 'http://mockurl.com/bad_div'
 EMPTY_DIV_POEM_URL = 'http://mockurl.com/empty_div'
+NO_TEXT_DIV_POEM_URL = 'http://mockurl.com/notext_div'
 
 BAD_CONTENT = "dnnncadnhdfb"
 
 EMPTY_POEM_TAGS = "<html><title>list of tags</title><body><div " +\
                   "style='padding-left:14px;padding-top:20px;font-family:Arial;font-size:13px;'/></body></html> "
+
+NO_TEXT_POEM_TAGS = "<html><title>list of tags</title><body><div " +\
+                 "style='padding-left:14px;padding-top:20px;font-family:Arial;font-size:13px;'><B></B><br><H1/><br><B" +\
+                 "/><br></div></body></html> "
 
 BAD_DIV_POEM_TAGS = "<html><title>list of tags</title><body><div " +\
                  "style='padding-left:14px;padding-top:20px;font-family:Arial;font-size:14px;'>America I've given you " +\
