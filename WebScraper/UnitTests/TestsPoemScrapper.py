@@ -39,7 +39,7 @@ class GetPoemURLTestCases(unittest.TestCase):
 
     @mock.patch('requests.get', side_effect=mocked_requests_get)
     def test_get_poem_urls_happy(self, mock_get):
-        links = poem_scraper.get_poem_urls(TestData.HAPPY_LINKS_URL)
+        links = poem_scraper.get_poem_urls(TestData.HAPPY_LINKS_URL, TestData.TEST_POET)
         self.assertEqual(10, len(links))
         self.assertIn(mock.call(TestData.HAPPY_LINKS_URL), mock_get.call_args_list)
 
@@ -47,19 +47,21 @@ class GetPoemURLTestCases(unittest.TestCase):
     def test_get_poem_urls_empty(self, mock_get):
         self.assertRaises(poem_scraper.UnexpectedResponse,
                           poem_scraper.get_poem_urls,
-                          TestData.EMPTY_LINKS_URL)
+                          TestData.EMPTY_LINKS_URL,
+                          TestData.TEST_POET)
         self.assertIn(mock.call(TestData.EMPTY_LINKS_URL), mock_get.call_args_list)
 
     @mock.patch('requests.get', side_effect=mocked_requests_get)
     def test_get_poem_urls_NoPoems(self, mock_get):
         self.assertRaises(poem_scraper.UnexpectedResponse,
                           poem_scraper.get_poem_urls,
-                          TestData.NOPOEM_LINKS_URL)
+                          TestData.NOPOEM_LINKS_URL,
+                          TestData.TEST_POET)
         self.assertIn(mock.call(TestData.NOPOEM_LINKS_URL), mock_get.call_args_list)
 
     @mock.patch('requests.get', side_effect=mocked_requests_get)
     def test_get_poem_urls_Mixed(self, mock_get):
-        links = poem_scraper.get_poem_urls(TestData.MIXED_LINKS_URL)
+        links = poem_scraper.get_poem_urls(TestData.MIXED_LINKS_URL, TestData.TEST_POET)
         self.assertEqual(2, len(links))
         self.assertIn(mock.call(TestData.MIXED_LINKS_URL), mock_get.call_args_list)
 
@@ -67,15 +69,22 @@ class GetPoemURLTestCases(unittest.TestCase):
     def test_get_poem_urls_not_found(self, mock_get):
         self.assertRaises(poem_scraper.UnexpectedResponse,
                           poem_scraper.get_poem_urls,
-                          TestData.NO_CONTENT_URL)
+                          TestData.NO_CONTENT_URL,
+                          TestData.TEST_POET)
         self.assertIn(mock.call(TestData.NO_CONTENT_URL), mock_get.call_args_list)
 
     @mock.patch('requests.get', side_effect=mocked_requests_get)
     def test_get_poem_urls_bad_content(self, mock_get):
         self.assertRaises(poem_scraper.UnexpectedResponse,
                           poem_scraper.get_poem_urls,
-                          TestData.BAD_CONTENT_URL)
+                          TestData.BAD_CONTENT_URL,
+                          TestData.TEST_POET)
         self.assertIn(mock.call(TestData.BAD_CONTENT_URL), mock_get.call_args_list)
+
+    def test_get_poem_urls(self):
+        links = poem_scraper.get_poem_urls("http://famouspoetsandpoems.com/poets/lawrence_ferlinghetti/poems",
+                                           "lawrence_ferlinghetti")
+
 
 
 class GetPoemLinesTestCase(unittest.TestCase):
@@ -130,8 +139,10 @@ class GetPoemLinesTestCase(unittest.TestCase):
             self.assertEqual(TestData.HAPPY_CLEAN_STRING_LIST[i], clean_list[i])
 
     def test_remove_non_utf8(self):
-        clean_list = poem_scraper.get_clean_poem_lines(TestData.UTF16_STRING_LIST, remove_non_asscii=True)
+        clean_list = poem_scraper.get_clean_poem_lines(TestData.UTF16_STRING_LIST, remove_non_ascii=True)
         self.assertEqual(TestData.UTF8_STRING_LIST[0], clean_list[0])
+
+
 
 
 if __name__ == '__main__':

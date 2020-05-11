@@ -51,7 +51,7 @@ class UnexpectedResponse(Exception):
         self.msg = msg
 
 
-def get_poem_urls(url: str) -> list:
+def get_poem_urls(url: str, poet: str) -> list:
     """
 
     :param url: URL for a specific poet
@@ -68,7 +68,7 @@ def get_poem_urls(url: str) -> list:
 
     for link in soup.find_all('a'):
         href = link.get('href')
-        poem_href = f'/poets/{Constants.POETS[0]}/poems/'
+        poem_href = f'/poets/{poet}/poems/'
 
         if poem_href in href:
             poems.append(f'{Constants.URL_PREFIX}{href}')
@@ -150,7 +150,7 @@ def get_clean_poem_lines(poem_lines: list, remove_non_ascii: bool = False) -> li
         temp_line = current_line.strip()
 
         if temp_line.endswith(".") or temp_line.endswith("?") or temp_line.endswith("!"):
-            clean_poem_lines.append(current_line.strip())
+            clean_poem_lines.append(current_line + " ")
             current_line = ""
 
     if len(current_line) != 0:

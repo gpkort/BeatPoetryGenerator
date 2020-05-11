@@ -10,7 +10,7 @@ def write_poets_to_file(poets: list, filename: str):
         current_url = f"{Constants.URL_PREFIX}{Constants.URL_POET}{poet}{Constants.URL_POST}"
 
         try:
-            poem_links = poem_scraper.get_poem_urls(current_url)
+            poem_links = poem_scraper.get_poem_urls(current_url, poet)
         except poem_scraper.UnexpectedResponse as ue:
             print(f"ERROR: {ue.msg} for the poet {poet} at URL: {ue.url}")
             continue

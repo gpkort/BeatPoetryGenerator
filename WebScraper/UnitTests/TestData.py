@@ -16,6 +16,7 @@ BAD_CONTENT = "dnnncadnhdfb"
 
 UTF16_STRING_LIST = ["#ÑÑÖ#"]
 UTF8_STRING_LIST = ["##"]
+TEST_POET = "allen_ginsberg"
 
 HAPPY_RAW_STRING_LIST = ["Here is one line!", "     has tabs. ", "join this line w- ",
                          "ith this one. ", "Next join this one ", "with this one.", "no ending"]
