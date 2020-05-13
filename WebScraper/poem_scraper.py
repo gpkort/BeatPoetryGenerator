@@ -140,21 +140,13 @@ def get_clean_poem_lines(poem_lines: list, remove_non_ascii: bool = False) -> li
     current_line = ""
     clean_poem_lines = []
     for line in poem_lines:
-        line = line.lstrip()
+        line = line.strip()
 
         if remove_non_ascii:
             line = ''.join(i for i in line if ord(i) < 128)
 
-        line = line if not line.endswith("- ") else line[:-2]
-        current_line = current_line + line
-        temp_line = current_line.strip()
-
-        if temp_line.endswith(".") or temp_line.endswith("?") or temp_line.endswith("!"):
-            clean_poem_lines.append(current_line + " ")
-            current_line = ""
-
-    if len(current_line) != 0:
-        clean_poem_lines.append(current_line)
+        if(len(line) != 0):
+            clean_poem_lines.append(line)
 
     return clean_poem_lines
 

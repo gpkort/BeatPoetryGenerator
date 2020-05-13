@@ -37,4 +37,8 @@ if __name__ == "__main__":
     print("Starting to scrape poets...")
     write_poets_to_file(Constants.POETS, "PoetData.txt")
 
+    # current_url = f"{Constants.URL_PREFIX}{Constants.URL_POET}gary_snyder{Constants.URL_POST}"
+    # print(Constants.POETS)
+    # poem_links = poem_scraper.get_poem_urls(current_url, 'gary_snyder')
+    # print(poem_links)
     print("Complete")
