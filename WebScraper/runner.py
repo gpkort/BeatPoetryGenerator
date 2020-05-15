@@ -29,7 +29,7 @@ def write_poets_to_file(poets: list, filename: str):
                 print(e)
                 return
 
-        clean_lines = poem_scraper.get_clean_poem_lines(line_list)
+        clean_lines = poem_scraper.get_clean_poem_lines(line_list, remove_non_ascii=True)
         poem_scraper.write_poems_to_file(filename, clean_lines, append=True)
 
 

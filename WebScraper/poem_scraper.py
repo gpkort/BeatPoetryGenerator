@@ -141,7 +141,7 @@ def get_clean_poem_lines(poem_lines: list, remove_non_ascii: bool = False) -> li
     clean_poem_lines = []
     lines = [l.strip() for l in poem_lines if len(l) > 0]
     idx = 0
-    last_index = len(lines)-1
+    last_index = len(lines) - 1
 
     while idx < len(lines):
         temp_line = lines[idx]
@@ -151,27 +151,16 @@ def get_clean_poem_lines(poem_lines: list, remove_non_ascii: bool = False) -> li
             temp_line = ''.join(i for i in temp_line if ord(i) < 128)
 
         if temp_line.endswith("-") and idx != last_index:
-            temp_line = temp_line.join(lines[idx+1])
+            temp_line = temp_line[:-1] + lines[idx + 1]
             join_line = True
 
         clean_poem_lines.append(temp_line)
         idx = idx + 2 if join_line else idx + 1
 
-
-
-    # for line in poem_lines:
-    #     line = line.strip()
-    #
-    #     if remove_non_ascii:
-    #         line = ''.join(i for i in line if ord(i) < 128)
-    #
-    #     if(len(line) != 0):
-    #         clean_poem_lines.append(line)
-
     return clean_poem_lines
 
 
-def write_poems_to_file(filename: str, poem_lines: list, append: bool = False, encoding: str = 'utf-16') -> None:
+def write_poems_to_file(filename: str, poem_lines: list, append: bool = False, encoding: str = 'utf_8') -> None:
     """
     Handy utility to save off list of str to file.
 
@@ -183,9 +172,6 @@ def write_poems_to_file(filename: str, poem_lines: list, append: bool = False, e
 
     write_type = "a" if append else "w"
 
-    with open(filename, write_type, encoding=encoding) as text_file:
+    with open(filename, write_type) as text_file: #, encoding=encoding
         for line in poem_lines:
             text_file.write(f"\n{line}")
-
-
-
