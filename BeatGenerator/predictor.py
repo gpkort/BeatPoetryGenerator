@@ -11,7 +11,9 @@ import matplotlib.pyplot as plt
 print(tf.__version__)
 tokenizer = Tokenizer()
 
+url = 'https://raw.githubusercontent.com/gpkort/BeatPoetryGenerator/develop/WebScraper/PoetData.txt'
 data = open('..\WebScraper\PoetData.txt').read()
+#  https://github.com/gpkort/BeatPoetryGenerator/blob/develop/WebScraper/PoetData.txt
 corpus = data.lower().split("\n")
 
 tokenizer.fit_on_texts(corpus)
